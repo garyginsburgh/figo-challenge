@@ -13,15 +13,8 @@ const App = () => {
   const [favourites, setFavourites] = useState<UserData[]>([]);
   const [showFavourites, setShowFavourites] = useState<boolean>(false);
 
-  const filterUsers = () => {
+  const filterUsers = (data: UserData[]) => {
     return data.filter((user: UserData) => {
-      const fullName = `${user.name.first} ${user.name.last}`.toLowerCase();
-      const search = searchValue.toLowerCase();
-      return fullName.includes(search);
-    });
-  };
-  const filterFavourites = () => {
-    return favourites.filter((user: UserData) => {
       const fullName = `${user.name.first} ${user.name.last}`.toLowerCase();
       const search = searchValue.toLowerCase();
       return fullName.includes(search);
@@ -37,7 +30,7 @@ const App = () => {
         setShowFavourites={setShowFavourites}
       />
       <UserTable
-        users={showFavourites ? filterFavourites() : filterUsers()}
+        users={filterUsers(showFavourites ? favourites : data)}
         setSearchValue={setSearchValue}
         setFavourites={setFavourites}
         favourites={favourites}
